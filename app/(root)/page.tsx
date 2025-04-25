@@ -9,6 +9,7 @@ import {
   getInterviewsByUserId,
   getLatestInterviews,
 } from "@/lib/actions/general.action";
+import * as AlertDialog from "@radix-ui/react-alert-dialog";
 
 async function Home() {
   const user = await getCurrentUser();
@@ -20,6 +21,7 @@ async function Home() {
 
   const hasPastInterviews = userInterviews?.length! > 0;
   const hasUpcomingInterviews = allInterview?.length! > 0;
+  const interviewLimitReached = userInterviews?.length! >= 5;
 
   return (
     <>
@@ -29,10 +31,75 @@ async function Home() {
           <p className="text-lg">
             Practice real interview questions & get instant feedback
           </p>
+          {interviewLimitReached ? (
+            <AlertDialog.Root>
+              <AlertDialog.Trigger asChild>
+                <Button className="btn-primary max-sm:w-full">
+                  Start an Interview
+                </Button>
+              </AlertDialog.Trigger>
 
-          <Button asChild className="btn-primary max-sm:w-full">
-            <Link href="/interview">Start an Interview</Link>
-          </Button>
+              <AlertDialog.Portal>
+                <AlertDialog.Overlay className="fixed inset-0 bg-black/50" />
+                <AlertDialog.Content className="fixed top-[50%] left-[50%] w-[90%] max-w-md -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-md shadow-lg">
+                  <AlertDialog.Title className="text-lg font-semibold mb-2 text-black">
+                    Thanks for your enthusiasm!
+                  </AlertDialog.Title>
+                  <AlertDialog.Description className="mb-4 text-sm text-gray-600">
+                    We’ve limited the number of interviews for free users to
+                    just 5. If you'd like to do more, please subscribe or leave
+                    us some feedback!
+                  </AlertDialog.Description>
+
+                  {/* Close Button */}
+                  <AlertDialog.Cancel asChild>
+                    <Button
+                      className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                      aria-label="Close dialog"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                    </Button>
+                  </AlertDialog.Cancel>
+
+                  <div className="flex justify-end gap-3 mt-4">
+                    <Button asChild className="btn-primary">
+                      <Link
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdFeUGJO-8XB-LgvnS4JqDrYq32MWdSPAJaBhjsn7rG4BmLEw/viewform"
+                        target="_blank"
+                      >
+                        Subscribe
+                      </Link>
+                    </Button>
+                    <Button asChild className="btn-seconday">
+                      <Link
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSfTkcH87w5UXrnWFVnl0zeghoage5hjp_Wgta7LrixlwPL2eg/viewform"
+                        target="_blank"
+                      >
+                        Give Feedback
+                      </Link>
+                    </Button>
+                  </div>
+                </AlertDialog.Content>
+              </AlertDialog.Portal>
+            </AlertDialog.Root>
+          ) : (
+            <Button asChild className="btn-primary max-sm:w-full">
+              <Link href="/interview">Start an Interview</Link>
+            </Button>
+          )}
         </div>
 
         <Image
