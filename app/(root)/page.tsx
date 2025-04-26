@@ -10,6 +10,7 @@ import {
   getLatestInterviews,
 } from "@/lib/actions/general.action";
 import UserPerformanceOverview from "@/components/PerformanceOverview";
+export const dynamic = "force-dynamic";
 
 async function Home() {
   const user = await getCurrentUser();
