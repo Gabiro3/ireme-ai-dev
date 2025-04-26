@@ -12,11 +12,12 @@ import {
 import Link from "next/link";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button"; // Assuming you have a Button component
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
   const user = await getCurrentUser();
   const [userInterviews] = await Promise.all([
-    getInterviewsByUserId(user?.id!),
+    getInterviewsByUserId(user?.id || ""),
   ]);
 
   // Assuming interviewLimitReached means the user has exhausted their free interviews.
