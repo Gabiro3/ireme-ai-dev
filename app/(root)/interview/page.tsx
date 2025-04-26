@@ -20,7 +20,7 @@ const Page = async () => {
   ]);
 
   // Assuming interviewLimitReached means the user has exhausted their free interviews.
-  const interviewLimitReached = (userInterviews ?? []).length >= 1;
+  const interviewLimitReached = (userInterviews ?? []).length >= 5;
 
   return (
     <>
