@@ -102,9 +102,9 @@ export async function getCurrentUser(): Promise<User | null> {
   try {
     const user = await currentUser();
     return {
-      id: user!.id,
-      name: user!.username || "",
-      email: user!.primaryEmailAddressId || "",
+      id: user?.id || "",
+      name: user?.username || "",
+      email: user?.primaryEmailAddressId || "",
     };
   } catch (error) {
     console.log(error);
