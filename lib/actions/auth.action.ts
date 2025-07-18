@@ -101,6 +101,7 @@ export async function signOut() {
 export async function getCurrentUser(): Promise<User | null> {
   try {
     const user = await currentUser();
+    if (!user) return null;
     return {
       id: user!.id || "",
       name: user!.username || "",
