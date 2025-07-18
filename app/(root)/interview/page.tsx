@@ -63,7 +63,11 @@ const Page = async () => {
         </div>
       ) : (
         // Render the Agent component if interview limit is not reached
-        <Agent userName={user?.name!} userId={user?.id} type="generate" />
+        <Agent
+          userName={user?.name ?? "student"}
+          userId={user?.id}
+          type="generate"
+        />
       )}
     </>
   );

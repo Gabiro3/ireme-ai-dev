@@ -104,7 +104,7 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!user) return null;
     return {
       id: user!.id || "",
-      name: user!.username || "",
+      name: user!.username || user!.firstName || "Guest",
       email: user!.primaryEmailAddressId || "",
     };
   } catch (error) {
